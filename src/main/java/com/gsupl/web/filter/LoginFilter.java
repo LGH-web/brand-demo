@@ -10,13 +10,14 @@ import java.io.IOException;
  * 登录验证的过滤器
  */
 
+/*
 @WebFilter("/*")
 public class LoginFilter implements Filter {
     @Override
     public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain) throws ServletException, IOException {
         HttpServletRequest req = (HttpServletRequest) request;
         //判断访问资源路径是否和登录注册相关
-        String[] urls = {"/login.jsp","/imgs/","/css/","/loginServlet","/register.jsp","/registerServlet","/checkCodeServlet"};
+        String[] urls = {"/login.jsp","/imgs/","/css/","/loginServlet","/AjaxServlet","/register.jsp","/registerServlet","/checkCodeServlet","/ajax.jsp"};
         // 获取当前访问的资源路径
         String url = req.getRequestURL().toString();
 
@@ -60,3 +61,4 @@ public class LoginFilter implements Filter {
 
 
 }
+*/

@@ -2,6 +2,7 @@ package com.gsupl.service;
 
 import com.gsupl.mapper.BrandMapper;
 import com.gsupl.pojo.Brand;
+import com.gsupl.pojo.PageBean;
 import com.gsupl.util.SqlSessionFactoryUtils;
 import org.apache.ibatis.session.SqlSession;
 import org.apache.ibatis.session.SqlSessionFactory;
@@ -117,8 +118,8 @@ public class BrandService {
         // 关闭事务
         sqlSession.close();
 
-
-
     }
+
+
 
 }

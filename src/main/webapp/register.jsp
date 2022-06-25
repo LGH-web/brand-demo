@@ -11,7 +11,7 @@
 <div class="form-div">
     <div class="reg-content">
         <h1>欢迎注册</h1>
-        <span>已有帐号？</span> <a href="login.html">登录</a>
+        <span>已有帐号？</span> <a href="login.jsp">登录</a>
     </div>
     <form id="reg-form" action="registerServlet" method="post">
 
@@ -22,7 +22,8 @@
                 <td class="inputs">
                     <input name="username" type="text" id="username">
                     <br>
-                    <span id="username_err" class="err_msg" >${register_msg}</span>
+                    <span id="username_err" class="err_msg" style="display: none">用户名不太受欢迎</span>
+<%--                    <span id="username_err" class="err_msg" >${register_msg}</span>--%>
                 </td>
 
             </tr>
@@ -57,10 +58,42 @@
 </div>
 
 <script>
-    document.getElementById("changeImg").onclick = function () {
-        document.getElementById("checkCodeImg").src = "./checkCodeServlet?"+new Date().getMilliseconds();
-    }
 
+    //1. 给用户名输入框绑定 失去焦点事件
+    document.getElementById("username").onblur = function () {
+        //2. 发送ajax请求
+        // 获取用户名的值
+        var username = this.value;
+        //2.1. 创建核心对象
+        var xhttp;
+        if (window.XMLHttpRequest) {
+            xhttp = new XMLHttpRequest();
+        } else {
+            // code for IE6, IE5
+            xhttp = new ActiveXObject("Microsoft.XMLHTTP");
+        }
+        //2.2. 发送请求
+        xhttp.open("GET", "http://localhost:8080/selectUserServlet?username=" + username);
+        xhttp.send();
+        //2.3. 获取响应
+        xhttp.onreadystatechange = function () {
+            if (this.readyState == 4 && this.status == 200) {
+                //alert(this.responseText);
+                //判断
+                if (this.responseText == "true") {
+                    //用户名存在，显示提示信息
+                    document.getElementById("username_err").style.display = '此用户名存在,请更换一个';
+                } else {
+                    //用户名不存在 ，清楚提示信息
+                    document.getElementById("username_err").style.display = 'none';
+                }
+            }
+        };
+
+        document.getElementById("changeImg").onclick = function () {
+            document.getElementById("checkCodeImg").src = "./checkCodeServlet?"+new Date().getMilliseconds();
+        }
+    }
 </script>
 </body>
 </html>
